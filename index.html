@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Music</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <script src="Tone.min.js"></script>
+    <script src="tonal.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <div class="header centering">
+        <h1>Songwriting tools</h1>
+    </div>
+    <div class="column column-third">
+        <div class="widget box">
+            <div class="widget-header centering">
+                <input class="show-widget" id="show-chord-player" type="checkbox" checked/><h2>Chord player</h2>
+            </div>
+            <div class="widget-content" id="chord-player">
+                <label>Tempo</label><input id="tempo" value="120" type="number"/><br/>
+                <label>Octave</label><input id="octave" value="4" type="number"/><br/>
+                <label>Signature</label><input class="mini-input" id="beatsperchord" value="4"/>/<input class="mini-input" id="beatlength" value="4"/><br/>
+                <label>Chords</label><textarea id="chords" cols="25" rows="5" placeholder="Chord progression">Cmaj7 Em9 2xFMadd9
+CMadd9 Emadd4 Fmaj7 Fm9/Eb
+Cmaj7 vDmadd9 Em7b5 vAm7
+Dm7 vG7 Cmaj7 vFm9,vF7#9/D</textarea><br/>
+                <div class="button-row centering">
+                    <button id="play">▶</button>
+                    <button id="stop" disabled>⏹</button>
+                    <button id="loop">Loop</button>
+                    <button id="clear">Clear</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="widget box">
+            <div class="widget-header centering">
+                <input class="show-widget" id="show-now-playing" type="checkbox" checked/><h2>Now playing</h2>
+            </div>
+            <div class="widget-content" id="now-playing">
+                <table class="chart now-playing">
+                    <tr>
+                        <th>Chord</th>
+                        <td id="current_chord"></td>
+                    </tr>
+                    <tr>
+                        <th>Step</th>
+                        <td id="current_step"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="widget box mixer">
+            <div class="widget-header centering">
+                <input class="show-widget" id="show-mixer" type="checkbox" checked/><h2>Mixer</h2>
+            </div>
+            <div class="widget-content" id="mixer">
+                <table>
+                    <tr>
+                        <th>Instrument</th>
+                        <th>Vol (dB)</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="pad-mix">Pad</label>
+                        </td>
+                        <td>
+                            <input class="instrument-slider" id="pad-mix" value="-20" type="number"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="bass-mix">Bass</label>
+                        </td>
+                        <td>
+                            <input class="instrument-slider" id="bass-mix" value="0" type="number"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="arp-mix">Arp</label>
+                        </td>
+                        <td>
+                            <input class="instrument-slider" id="arp-mix" value="-15" type="number"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="guitar-mix">Guitar</label>
+                        </td>
+                        <td>
+                            <input class="instrument-slider" id="guitar-mix" value="0" type="number"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="piano-mix">Piano</label>
+                        </td>
+                        <td>
+                            <input class="instrument-slider" id="piano-mix" value="-5" type="number"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="widget box">
+            <div class="widget-header centering">
+                <input class="show-widget" id="show-warnings" type="checkbox" checked/><h2>Warnings</h2>
+            </div>
+            <div class="widget-content" id="warnings">
+                <p id="warning-content">
+                    Warnings will show up here <ul id="warning-list"></ul>
+                </p>
+            </div>
+        </div>
+
+        <div class="widget box">
+            <div class="widget-header centering">
+                <input class="show-widget" id="show-allowed-chords" type="checkbox" checked/><h2>Allowed chord names</h2>
+            </div>
+            <div class="widget-content" id="allowed-chords">
+                <p>Other chords (like maj7) may be allowed, but these ones are for sure.</p>
+                <ul id="chordnames">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="column column-twothirds">
+        <div class="widget box">
+            <div class="widget-header centering">
+                <input class="show-widget" id="show-mode-explorer" type="checkbox" checked/><h2>Mode explorer</h2>
+            </div>
+            <div class="widget-content" id="mode-explorer">
+                <div class="formlib-generated">
+                    <label>Tonic</label><input id="tonic" value="C"/><br/>
+                    <label>7ths</label><input type="checkbox" id="sevenths" checked/><br/>
+                    <p>
+                        <button id="makechart">Generate chart</button>
+                    </p>
+                </div>
+                <div class="inner-box box">
+                    <table class="chart">
+                        <tr>
+                            <th>Mode&darr; Num&rarr;</th><th>I</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th>
+                        </tr>
+                        <tr id="majorscale">
+                            <th>Ionian / Major</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        </tr>
+                        <tr id="dorianscale">
+                            <th>Dorian</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        </tr>
+                        <tr id="phrygianscale">
+                            <th>Phrygian</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        </tr>
+                        <tr id="lydianscale">
+                            <th>Lydian</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        </tr>
+                        <tr id="mixolydianscale">
+                            <th>Mixolydian</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        </tr>
+                        <tr id="minorscale">
+                            <th>Aeolian / Minor</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        </tr>
+                        <tr id="locrianscale">
+                            <th>Locrian</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        </tr>
+                    </table>
+                </div>
+                <p>
+                    Click on the chords to add them to the player
+                </p>
+            </div>
+        </div>
+        <div class="column column-half">
+            <div class="widget box">
+                <div class="widget-header centering">
+                    <input class="show-widget" id="show-piano" type="checkbox" checked/><h2>Piano</h2>
+                </div>
+                <div class="widget-content" id="piano">
+                    <label for="sustain-pedal">Sustain pedal</label><input id="sustain-pedal" type="checkbox"/>
+                    <label for="sustain-pedal">Note labels</label><input id="note-labels" type="checkbox"/><br/>
+                    <div id="piano-frame" class="clearfix">
+                        <div id="white-keys">
+                            <div id="piano-C3" data-note="C" class="key white"><span>C</span></div>
+                            <div id="piano-D3" data-note="D" class="key white"><span>D</span></div>
+                            <div id="piano-E3" data-note="E" class="key white"><span>E</span></div>
+                            <div id="piano-F3" data-note="F" class="key white"><span>F</span></div>
+                            <div id="piano-G3" data-note="G" class="key white"><span>G</span></div>
+                            <div id="piano-A3" data-note="A" class="key white"><span>A</span></div>
+                            <div id="piano-B3" data-note="B" class="key white"><span>B</span></div>
+                            <div id="piano-C4" data-note="C" class="key white"><span>C</span></div>
+                            <div id="piano-D4" data-note="D" class="key white"><span>D</span></div>
+                            <div id="piano-E4" data-note="E" class="key white"><span>E</span></div>
+                            <div id="piano-F4" data-note="F" class="key white"><span>F</span></div>
+                            <div id="piano-G4" data-note="G" class="key white"><span>G</span></div>
+                            <div id="piano-A4" data-note="A" class="key white"><span>A</span></div>
+                            <div id="piano-B4" data-note="B" class="key white"><span>B</span></div>
+                        </div>
+                        <div id="black-keys">
+                            <div id="piano-Db3" data-note="Db" class="key black"><span>Db</span></div>
+                            <div id="piano-Eb3" data-note="Eb" class="key black"><span>Eb</span></div>
+                            <div class="key black dummy"></div>
+                            <div id="piano-Gb3" data-note="Gb" class="key black"><span>Gb</span></div>
+                            <div id="piano-Ab3" data-note="Ab" class="key black"><span>Ab</span></div>
+                            <div id="piano-Bb3" data-note="Bb" class="key black"><span>Bb</span></div>
+                            <div class="key black dummy"></div>
+                            <div id="piano-Db4" data-note="Db" class="key black"><span>Db</span></div>
+                            <div id="piano-Eb4" data-note="Eb" class="key black"><span>Eb</span></div>
+                            <div class="key black dummy"></div>
+                            <div id="piano-Gb4" data-note="Gb" class="key black"><span>Gb</span></div>
+                            <div id="piano-Ab4" data-note="Ab" class="key black"><span>Ab</span></div>
+                            <div id="piano-Bb4" data-note="Bb" class="key black"><span>Bb</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="column column-half">
+        <div class="widget box">
+            <div class="widget-header centering">
+                <input class="show-widget" id="show-guitar-tuner" type="checkbox" checked/><h2>Guitar tuner</h2>
+            </div>
+            <div class="widget-content" id="guitar-tuner">
+                <table class="chart">
+                    <tr><td class="note string" id="string-6" width="70%">E4</td><td class="up" id="up-6">&uarr;</td><td class="down" id="down-6">&darr;</td><td rowspan="6" id="all-up">&uArr;</td><td rowspan="6" id="all-down">&dArr;</td></tr>
+                    <tr><td class="note string" id="string-5" width="70%">B3</td><td class="up" id="up-5">&uarr;</td><td class="down" id="down-5">&darr;</td></tr>
+                    <tr><td class="note string" id="string-4" width="70%">G3</td><td class="up" id="up-4">&uarr;</td><td class="down" id="down-4">&darr;</td></tr>
+                    <tr><td class="note string" id="string-3" width="70%">D3</td><td class="up" id="up-3">&uarr;</td><td class="down" id="down-3">&darr;</td></tr>
+                    <tr><td class="note string" id="string-2" width="70%">A2</td><td class="up" id="up-2">&uarr;</td><td class="down" id="down-2">&darr;</td></tr>
+                    <tr><td class="note string" id="string-1" width="70%">E2</td><td class="up" id="up-1">&uarr;</td><td class="down" id="down-1">&darr;</td></tr>
+                </table>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+</body>
+</html>
+<script src="ui.js"></script>
+<script src="audio.js"></script>
+<!--<script src="synthrack.js"></script>-->
+<script src="parsechords.js"></script>
+<script src="tuner.js"></script>
+<script src="piano.js"></script>
+<script src="chordplayer.js"></script>
+<script src="chordchart.js"></script>
+

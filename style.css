@@ -1,0 +1,240 @@
+body {
+    font-family: "Open Sans", sans-serif;
+    background: url("images/texture.png");
+}
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.chord:hover, .note:hover, .up:hover, .down:hover, #all-up:hover, #all-down:hover {
+    filter: drop-shadow(2px 2px 2px);
+}
+
+.chord {
+    background-color: white;
+}
+
+.key.white span {
+    position: relative;
+    margin: 75px 5px 0 4px;
+    font-size: 15px;
+    float: left;
+    color: black;
+}
+
+.key.black span {
+    position: relative;
+    margin: 50px 0 0 1px;
+    font-size: 13px;
+    float: left;
+    color: white;
+}
+
+#piano-frame {
+    background: #333;
+    padding: 15px 0 0 10px;
+    margin-bottom: 20px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    height: 95px;
+}
+
+#piano-frame .key span {
+    display: none;
+}
+
+#piano-frame.with-labels .key span {
+    display: block;
+    pointer-events: none;
+}
+
+#black-keys {
+    position: relative;
+    left: 12px;
+}
+
+#white-keys {
+    position: relative;
+    left: 0;
+}
+
+.black.dummy {
+    visibility: hidden;
+}
+
+.key.white {
+    height: 100px;
+    width: 20px;
+    background:white;
+    display: inline-block;
+    position: relative;
+}
+
+.key.black {
+    height: 70px;
+    width: 20px;
+    background: black;
+    display: inline-block;
+    position: relative;
+    top: -105px;
+}
+
+.key:active {
+    filter: drop-shadow(2px 2px 2px rgb(0,0,0));
+}
+
+.key {
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 7px auto;
+    padding-top: 49px;
+    margin-top: -35px;
+}
+
+.widget {
+    background-color: #5F5F5F;
+    color: white;
+}
+
+.widget h2 {
+    display: inline-block;
+}
+
+.show-widget {
+    height: auto;
+    float: left;
+    margin-right: 20px;
+    display: inline-block;
+}
+
+.header {
+    width: 100%;
+}
+
+.column {
+    float: left;
+}
+
+.column-third {
+    width: 33.33333%;
+}
+
+.column-half {
+    width: 50%;
+}
+
+.column-twothirds {
+    width: 66.66667%;
+}
+
+.column-full {
+    width: 100%;
+}
+
+@media (max-width: 800px) {
+    .column-1,.column-2 {
+        width:100%;
+    }
+}
+
+.centering {
+    text-align: center;
+}
+
+.mini-input {
+    width: 20%;
+}
+
+td.instrument-label {
+    border: none !important;
+}
+
+.mixer label {
+    width: 20%;
+}
+
+.instrument-slider {
+    width: 100%;
+}
+
+.inner-box {
+    background-color: #fff;
+    color: black;
+}
+
+.header {
+    color: white;
+}
+
+.box {
+    padding: 3px 14px;
+    margin: 0 7px 14px 7px;
+    border-radius: 5px;
+    border: 5px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    -o-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    -ms-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    -moz-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.centered {
+    margin: auto;
+}
+
+.chart {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.now-playing {
+    table-layout: fixed;
+}
+
+.chart td {
+    text-align: center;
+    border: 1px solid grey;
+    padding: 5px;
+}
+
+label {
+    width: 34%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: right;
+    padding-right: 7px;
+    line-height: 35px;
+    display: inline-block;
+}
+
+input {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 3px 7px 4px 7px;
+    white-space: nowrap;
+    background: #fcfcfc;
+    border-radius: 2px;
+    border: 1px solid #b2b2ab;
+    font-family: "Trebuchet MS", sans-serif;
+    height: 28px;
+    margin: 4px 0 3px 0;
+}
+
+textarea {
+    background: #fcfcfc;
+    border: 1px solid #b2b2ab !important;
+    border-radius: 2px;
+    padding: 7px;
+}
