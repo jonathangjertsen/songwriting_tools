@@ -2,7 +2,7 @@
 
 Uses [tonal](https://github.com/danigb/tonal), [Tone.js](https://github.com/Tonejs/Tone.js) and [Vanilla JS](http://vanilla-js.com/) to build a songwriting widgets
 
-![screenshot](https://raw.githubusercontent.com/jonathangjertsen/songwriting_tools/master/screenshot.png)
+![screenshot](https://raw.githubusercontent.com/jonathangjertsen/songwriting_tools/master/images/songwriting-tools.png)
 
 ## Installation
 
