@@ -4,9 +4,9 @@ Uses [tonal](https://github.com/danigb/tonal), [Tone.js](https://github.com/Tone
 
 ![screenshot](https://raw.githubusercontent.com/jonathangjertsen/songwriting_tools/master/images/songwriting-tools.png)
 
-## Installation
+## Usage
 
-Download and serve the source code
+Here https://jonathangjertsen.github.io/songwriting_tools/
 
 ## Widgets
 
